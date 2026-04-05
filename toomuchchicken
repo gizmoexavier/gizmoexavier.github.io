@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greek Chicken Souvlaki</title>
+  <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1A3A4A;
+      --gold: #C5973A;
+      --gold-light: #E8C97A;
+      --cream: #F9F4EC;
+      --parchment: #F0E8D8;
+      --text: #2C2416;
+      --muted: #7A6A54;
+      --white: #FFFDF9;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 520px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 60%;
+      filter: brightness(0.72) saturate(1.1);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(20,14,6,0.88) 0%, rgba(20,14,6,0.2) 55%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2.5rem 2.5rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .hero-title {
+      font-family: 'Arvo', serif;
+      font-size: 52px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-tagline {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      font-weight: 300;
+      font-style: italic;
+      max-width: 480px;
+    }
+
+    /* META BAR */
+    .meta-bar { background: var(--navy); }
+
+    .meta-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .meta-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 12px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      color: #fff;
+    }
+    .meta-item:last-child { border-right: none; }
+
+    .meta-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold-light);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .meta-value {
+      font-family: 'Arvo', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* MAIN */
+    .main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2.5rem 4rem;
+    }
+
+    .intro {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .intro p {
+      font-size: 16px;
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    .intro-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .intro-divider::before,
+    .intro-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+    }
+
+    .intro-ornament {
+      color: var(--gold);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    /* CONTENT GRID */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* INGREDIENT CARDS */
+    .ingredient-card {
+      background: var(--white);
+      border: 1px solid rgba(197,151,58,0.25);
+      border-top: 4px solid var(--gold);
+      border-radius: 4px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-family: 'Arvo', serif;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(197,151,58,0.2);
+    }
+
+    .ing-item {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px dashed rgba(122,106,84,0.2);
+      font-size: 13px;
+      align-items: baseline;
+    }
+    .ing-item:last-child { border-bottom: none; }
+
+    .ing-amount {
+      font-weight: 600;
+      color: var(--navy);
+      font-size: 12px;
+    }
+
+    .ing-name { color: var(--text); }
+
+    /* STEPS */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 1.75rem;
+    }
+
+    .section-header-title {
+      font-family: 'Arvo', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+      white-space: nowrap;
+    }
+
+    .section-header-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(197,151,58,0.5), transparent);
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: start;
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Arvo', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+      background: var(--white);
+    }
+
+    .step-title {
+      font-family: 'Arvo', serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--navy);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .step-text {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* PHOTO BREAK */
+    .photo-break-single {
+      margin: 2.5rem 0;
+      height: 300px;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    .photo-break-single img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      filter: brightness(0.92) saturate(1.1);
+    }
+
+    /* NOTES */
+    .notes-section {
+      background: var(--navy);
+      border-radius: 4px;
+      padding: 2rem 2rem 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .notes-title {
+      font-family: 'Arvo', serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold-light);
+      margin-bottom: 1.25rem;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .note-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.65;
+      align-items: baseline;
+    }
+    .note-item:last-child { margin-bottom: 0; }
+
+    .note-icon {
+      color: var(--gold);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: var(--navy);
+      border-top: 3px solid var(--gold);
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .footer p {
+      font-family: 'Arvo', serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.08em;
+    }
+
+    .footer strong { color: var(--gold-light); }
+
+    /* RESPONSIVE */
+    @media (max-width: 680px) {
+      .hero { height: 380px; }
+      .hero-title { font-size: 34px; }
+      .content-grid { grid-template-columns: 1fr; }
+      .meta-inner { flex-wrap: wrap; }
+      .meta-item { flex: 1 1 45%; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .main { padding: 2rem 1.25rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <img class="hero-img" src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Souvlaki_in_Athens.JPG" alt="Greek chicken souvlaki on the grill">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Ken's Kitchen &nbsp;·&nbsp; Grilling Season</p>
+      <h1 class="hero-title">Greek Chicken<br><em>Souvlaki</em></h1>
+      <p class="hero-tagline">A punched-up marinade built for high heat, real char, and a table that looks like a mezze spread.</p>
+    </div>
+  </div>
+
+  <div class="meta-bar">
+    <div class="meta-inner">
+      <div class="meta-item">
+        <span class="meta-label">Prep</span>
+        <span class="meta-value">15 min</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Marinate</span>
+        <span class="meta-value">8–12 hrs</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Grill</span>
+        <span class="meta-value">8–10 min</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Pull Temp</span>
+        <span class="meta-value">160°F</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Serves</span>
+        <span class="meta-value">4</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="intro">
+      <div class="intro-divider"><span class="intro-ornament">✦</span></div>
+      <p>The base is a classic — lemon, olive oil, oregano, garlic. This version pushes harder on every lever: red wine vinegar for dual-acid depth, lemon zest for fragrance that survives the grill, smoked paprika for color and smoke, and Dijon to bind it all together. Marinate overnight. Pull at 160°F. Don't blow it.</p>
+    </div>
+
+    <div class="content-grid">
+
+      <div class="sidebar">
+        <div class="ingredient-card">
+          <div class="card-title">The Marinade</div>
+          <div class="ing-item"><span class="ing-amount">1¼ lbs</span><span class="ing-name">boneless skinless chicken breast, 1-inch cubes</span></div>
+          <div class="ing-item"><span class="ing-amount">3–4 tbsp</span><span class="ing-name">olive oil</span></div>
+          <div class="ing-item"><span class="ing-amount">1½ tbsp</span><span class="ing-name">fresh lemon juice</span></div>
+          <div class="ing-item"><span class="ing-amount">1 tsp</span><span class="ing-name">lemon zest</span></div>
+          <div class="ing-item"><span class="ing-amount">1 tbsp</span><span class="ing-name">red wine vinegar</span></div>
+          <div class="ing-item"><span class="ing-amount">1½ tsp</span><span class="ing-name">dried Greek oregano</span></div>
+          <div class="ing-item"><span class="ing-amount">3–4</span><span class="ing-name">garlic cloves, minced</span></div>
+          <div class="ing-item"><span class="ing-amount">1 tsp</span><span class="ing-name">Dijon mustard</span></div>
+          <div class="ing-item"><span class="ing-amount">½ tsp</span><span class="ing-name">smoked paprika</span></div>
+          <div class="ing-item"><span class="ing-amount">1 tsp</span><span class="ing-name">kosher salt</span></div>
+          <div class="ing-item"><span class="ing-amount">½ tsp</span><span class="ing-name">black pepper</span></div>
+        </div>
+
+        <div class="ingredient-card">
+          <div class="card-title">Skewers</div>
+          <div class="ing-item"><span class="ing-amount">1</span><span class="ing-name">red bell pepper, 1-inch pieces</span></div>
+          <div class="ing-item"><span class="ing-amount">1</span><span class="ing-name">red onion, 1-inch pieces</span></div>
+        </div>
+
+        <div class="ingredient-card">
+          <div class="card-title">To Serve</div>
+          <div class="ing-item"><span class="ing-amount"></span><span class="ing-name">Warm pita bread</span></div>
+          <div class="ing-item"><span class="ing-amount"></span><span class="ing-name">Lemon wedges</span></div>
+          <div class="ing-item"><span class="ing-amount"></span><span class="ing-name">Chopped fresh parsley</span></div>
+          <div class="ing-item"><span class="ing-amount"></span><span class="ing-name">Crumbled feta (optional)</span></div>
+        </div>
+      </div>
+
+      <div class="steps-section">
+        <div class="section-header">
+          <span class="section-header-title">Method</span>
+          <div class="section-header-line"></div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Build the marinade</div>
+            <div class="step-text">Whisk together olive oil, lemon juice, lemon zest, red wine vinegar, oregano, garlic, Dijon, smoked paprika, salt, and pepper until emulsified.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Marinate overnight</div>
+            <div class="step-text">Add chicken and toss to coat every piece. Cover and refrigerate 8–12 hours. Overnight is the move. With breast, you need that window.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Temper before grilling</div>
+            <div class="step-text">Pull the chicken from the fridge 20–30 minutes before it hits the grill. Cold chicken on a hot grate cooks unevenly.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Skewer separately</div>
+            <div class="step-text">Thread chicken onto its own skewers. Veggies on separate ones. Bell pepper and onion need more time — don't sacrifice one for the other.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">High heat only</div>
+            <div class="step-text">Preheat grill to high. Wipe excess marinade off the chicken first or it'll burn instead of char. You want crust, not carbon.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <div class="step-title">Grill and pull at 160°F</div>
+            <div class="step-text">4–5 minutes per side. Use a thermometer. Pull at 160°F internal — carryover takes it to 165°F. This is the difference between juicy and dry.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-body">
+            <div class="step-title">Char the vegetables</div>
+            <div class="step-text">Grill vegetable skewers alongside, turning as needed until softened and lightly charred. They should have color, not just grill marks.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">8</div>
+          <div class="step-body">
+            <div class="step-title">Plate and serve</div>
+            <div class="step-text">Rest briefly, then serve with warm pita, lemon wedges, fresh parsley, and crumbled feta. Make it look like a spread.</div>
+          </div>
+        </div>
+
+        <div class="photo-break-single">
+          <img src="https://i.pinimg.com/736x/ec/2a/c8/ec2ac8edbef3e6d746ff636984646b22.jpg" alt="Greek souvlaki plated with pita and accompaniments">
+        </div>
+
+        <div class="notes-section">
+          <div class="notes-title">Chef's Notes</div>
+          <div class="note-item"><span class="note-icon">→</span><span>Cut chicken as uniform as possible. Uneven pieces mean some are dry before others are safe.</span></div>
+          <div class="note-item"><span class="note-icon">→</span><span>Lemon zest can turn slightly bitter over a very long marination. For 12+ hours, add it in the last 2 hours if you want to play it safe.</span></div>
+          <div class="note-item"><span class="note-icon">→</span><span>Smoked paprika is subtle here — color and a whisper of smoke without steering the flavor profile off-genre.</span></div>
+          <div class="note-item"><span class="note-icon">→</span><span>Dijon acts as an emulsifier. Don't skip it. You won't taste it directly.</span></div>
+          <div class="note-item"><span class="note-icon">→</span><span>Thighs are the better cut if you have them. Breast works — just respect the pull temp.</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><strong>Greek Chicken Souvlaki</strong> &nbsp;·&nbsp; Ken's Kitchen &nbsp;·&nbsp; Grilling Season</p>
+  </div>
+
+</body>
+</html>
